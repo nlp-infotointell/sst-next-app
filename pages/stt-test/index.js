@@ -8,7 +8,10 @@ export default function SttTest() {
   const [loading, setLoading] = useState(false);
 
   const [correctText, setCorrectText] = useState("");
+
+  const [selectedText, setSelectedText] = useState("");
   const [correctForm, setCorrectForm] = useState(false);
+
   return (
     <div>
       <Head>
@@ -237,7 +240,10 @@ export default function SttTest() {
               value={correctText}
               className="correct-input"
               disabled={!correctForm}
-              onChange={(e) => setCorrectText(e.target.value)}
+              onChange={(e) => {
+                //setCorrectText(window.getSelection().toString())
+                setCorrectText(e.target.value);
+              }}
             />
           </div>
 
@@ -267,9 +273,11 @@ export default function SttTest() {
               // className="btn-solid-lg "
               onClick={() => {
                 if (correctForm) {
-                  setText(correctText);
+                  setText(text.replace(selectedText, correctText));
                 } else {
-                  setCorrectText(text);
+                  setSelectedText(window.getSelection().toString());
+                  setCorrectText(window.getSelection().toString());
+                  // setCorrectText(text);
                 }
                 setCorrectForm(!correctForm);
               }}
